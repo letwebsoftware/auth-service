@@ -28,7 +28,6 @@ export const buildFastifyApp = () => {
           ignore: "pid,hostname",
         },
       },
-      file: `./logs/${process.env.NODE_ENV}.log`,
     }
   });
 
