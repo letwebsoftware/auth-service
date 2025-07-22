@@ -8,7 +8,7 @@
     "start": "node dist/server.js",
     "migrate:generate": "drizzle-kit generate",
     "migrate:push": "drizzle-kit push",
-    "test": "export NODE_ENV=test && export MYSQL_CONNECTION_STRING=mysql://normlife:normlife@auth-service-db-test:3306/normlife_auth_test && vitest run",
+    "test": "export NODE_ENV=test && export MYSQL_CONNECTION_STRING=${MYSQL_TEST_CONNECTION_STRING} && vitest run",
     "test:watch": "vitest"
   },
   "keywords": [],
