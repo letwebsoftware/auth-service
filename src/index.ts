@@ -8,7 +8,7 @@ import * as schema from "./db/schema";
 import { drizzle } from 'drizzle-orm/mysql2';
 import mysql from 'mysql2/promise';
 
-let config = Config().get;
+const config = Config().get;
 
 export const buildDrizzleDb = () => {
   const pool = mysql.createPool({
@@ -87,7 +87,7 @@ export const buildFastifyApp = () => {
       const decoded = app.jwt.verify(token);
       return { user: decoded };
     } catch (err) {
-      return res.status(401).send({ error: "Invalid token" });
+      return res.status(401).send({ error: "Invalid token", message: (err as Error).message });
     }
   });
 

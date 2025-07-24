@@ -1,6 +1,6 @@
 
 
-export const Config = (config: string | null = null) => {
+export const Config = () => {
   if (process.env.JWT_SECRET === undefined) {
     console.warn(
       "JWT_SECRET is not set, using default secret. This is not secure for production!"

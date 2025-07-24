@@ -2,12 +2,10 @@ import { describe, it, expect, beforeAll, afterAll, beforeEach } from "vitest";
 import request from "supertest";
 import { buildDrizzleDb, buildFastifyApp } from "../src/index";
 import { runMigrations } from "./setup/runMigration";
-import { Config } from "../src/config";
 import { usersTable } from "../src/db/schema";
 
 let app: ReturnType<typeof buildFastifyApp>;
 let db: ReturnType<typeof buildDrizzleDb>;
-let config = Config().get();
 
 beforeAll(async () => {
   app = buildFastifyApp();
@@ -50,6 +48,9 @@ describe("Auth Service", () => {
     const response = await request(app.server)
       .post("/login")
       .send({ email: "test2@test.com", password: "pass" });
+    
+    expect(response.body).toHaveProperty("token");
+    expect(response.body).toHaveProperty("refresh-token");
     expect(response.status).toBe(200);
   });
 });

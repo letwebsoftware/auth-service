@@ -4,7 +4,7 @@ import path from "path";
 import { Config } from "../../src/config";
 
 export async function runMigrations() {
-  let config = Config().get();
+  const config = Config().get();
   if (!config.mysqlConnectionString) {
     throw new Error(
       "MySQL connection string is not defined in the configuration."
