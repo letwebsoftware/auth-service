@@ -10,13 +10,8 @@ export async function runMigrations() {
       "MySQL connection string is not defined in the configuration."
     );
   }
-  console.log(
-    "Running migrations for auth service..." + config.mysqlConnectionString
-  );
   const db = buildDrizzleDb();
   await migrate(db, {
     migrationsFolder: path.resolve(__dirname, "../../drizzle"),
   });
-
-  console.log("Migrations completed successfully.");
 }

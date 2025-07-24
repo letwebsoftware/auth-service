@@ -17,7 +17,6 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  console.log("Users table truncated before test.");
   await db.delete(usersTable);
 });
 

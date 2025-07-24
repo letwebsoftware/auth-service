@@ -20,15 +20,6 @@ export const buildDrizzleDb = () => {
 
 export const buildFastifyApp = () => {
   const app = Fastify({
-    logger: {
-      transport: {
-        target: "pino-pretty",
-        options: {
-          translateTime: "HH:MM:ss Z",
-          ignore: "pid,hostname",
-        },
-      },
-    }
   });
 
   app.register(cors, { origin: true });
