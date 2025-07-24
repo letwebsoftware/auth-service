@@ -81,7 +81,7 @@ export const buildFastifyApp = () => {
         return res.status(401).send({ error: "Unauthorized" });
       }
 
-      const token = app.jwt.sign({ email: user.email });
+      const token = app.jwt.sign({ email: user.email, id: user.id });
       return res.send({ token });
     }
     return res.status(400).send({ error: "Email and password are required" });
