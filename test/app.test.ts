@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll, beforeEach } from "vitest";
+import { it, expect, beforeAll, afterAll, beforeEach } from "vitest";
 import request from "supertest";
 import { buildDrizzleDb, buildFastifyApp } from "../src/index";
 import { runMigrations } from "./setup/runMigration";
