@@ -83,7 +83,7 @@ it("should not login a user with wrong password", async () => {
 
 it("should refresh a token", async () => {
   // First, register a user
-  const registerResponse = await request(app.server)
+  await request(app.server)
     .post("/register")
     .send({ email: "test2@test.com", password: "pass" });
 
