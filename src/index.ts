@@ -98,7 +98,7 @@ export const buildFastifyApp = () => {
       return res.status(401).send({ error: "Refresh token required" });
     }
     try {
-      const decoded = app.jwt.verify(refreshToken);
+      const decoded = app.jwt.verify(refreshToken) as { email: string; id: number };
 
       const user = await db.query.usersTable.findFirst({
         where: (fields, operators) => operators.eq(fields.email, decoded.email),

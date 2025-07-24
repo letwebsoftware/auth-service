@@ -10,7 +10,9 @@
     "migrate:push": "drizzle-kit push",
     "test": "export NODE_ENV=test && export MYSQL_CONNECTION_STRING=${MYSQL_TEST_CONNECTION_STRING} && vitest run",
     "test:watch": "vitest",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts && tsc --noEmit",
+    "lint:eslint": "eslint . --ext .ts",
+    "lint:tsc": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
