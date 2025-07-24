@@ -92,5 +92,29 @@ export const buildFastifyApp = () => {
     }
   });
 
+  app.post("/refresh", async (req, res) => {
+    const { refreshToken } = req.body as { refreshToken: string };
+    if (!refreshToken) {
+      return res.status(401).send({ error: "Refresh token required" });
+    }
+    try {
+      const decoded = app.jwt.verify(refreshToken);
+
+      const user = await db.query.usersTable.findFirst({
+        where: (fields, operators) => operators.eq(fields.email, decoded.email),
+      });
+
+      if (!user) {
+        return res.status(401).send({ error: "Unauthorized" });
+      }
+
+      const newToken = app.jwt.sign({ email: decoded.email, id: decoded.id }, { expiresIn: '1h' });
+      const newRefreshToken = app.jwt.sign({ email: decoded.email, id: decoded.id }, { expiresIn: '7d' });
+      return res.send({ token: newToken, refreshToken: newRefreshToken });
+    } catch (err) {
+      return res.status(401).send({ error: "Invalid refresh token", message: (err as Error).message });
+    }
+  });
+
   return app;
 };
