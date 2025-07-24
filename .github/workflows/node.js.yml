@@ -76,8 +76,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t letwebsoftware/auth-service:${{ github.branch }} .
+          docker build -t letwebsoftware/auth-service:${{ github.ref_name }} .
 
       - name: Push Docker image
         run: |
-          docker push letwebsoftware/auth-service:${{ github.branch }}
+          docker push letwebsoftware/auth-service:${{ github.ref_name }}
