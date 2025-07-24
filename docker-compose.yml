@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  auth-service:
+    build:
+      context: .
+    container_name: auth-service
+    ports:
+      - '${AUTH_SERVICE_PORT:-3000}:3000'
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+      - JWT_SECRET=your_jwt_secret
+      - MYSQL_CONNECTION_STRING=mysql://user:password@auth-service-db:3306/db
+      - MYSQL_TEST_CONNECTION_STRING=mysql://testuser:testpass@auth-service-db-test:3306/test_db
+      - PASSWORD_SALT=your_password_salt
+      - PASSWORD_HASH_ALGORITHM=sha256
+      - APP_PORT=${AUTH_SERVICE_PORT:-3000}
+    depends_on:
+      - auth-service-db
+      - auth-service-db-test
+    command: npm run dev
+
+  auth-service-db:
+    image: mysql:8.0
+    container_name: auth-service-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+  auth-service-db-test:
+    image: mysql:8.0
+    container_name: auth-service-db-test
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test_db
+      - MYSQL_USER=testuser
+      - MYSQL_PASSWORD=testpass

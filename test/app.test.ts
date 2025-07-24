@@ -50,7 +50,7 @@ describe("Auth Service", () => {
       .send({ email: "test2@test.com", password: "pass" });
     
     expect(response.body).toHaveProperty("token");
-    expect(response.body).toHaveProperty("refresh-token");
+    expect(response.body).toHaveProperty("refreshToken");
     expect(response.status).toBe(200);
   });
 });

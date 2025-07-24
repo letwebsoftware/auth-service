@@ -2,11 +2,10 @@
   "name": "norm-life-auth",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js",
+    "start": "npm run migrate:push && node dist/server.js",
     "migrate:generate": "drizzle-kit generate",
     "migrate:push": "drizzle-kit push",
     "test": "export NODE_ENV=test && export MYSQL_CONNECTION_STRING=${MYSQL_TEST_CONNECTION_STRING} && vitest run",
