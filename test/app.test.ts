@@ -100,3 +100,17 @@ it("should refresh a token", async () => {
   expect(response.body).toHaveProperty("token");
   expect(response.body).toHaveProperty("refreshToken");
 });
+
+it("should not create a user with an existing email", async () => {
+  // First, register a user
+  await request(app.server)
+    .post("/register")
+    .send({ email: "test2@test.com", password: "pass" });
+
+  const response = await request(app.server)
+    .post("/register")
+    .send({ email: "test2@test.com", password: "pass" });
+
+  expect(response.status).toBe(409);
+  expect(response.body.error).toBe("User already exists");
+});

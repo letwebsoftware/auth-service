@@ -33,6 +33,15 @@ export const buildFastifyApp = () => {
   app.post("/register", async (req, res) => {
     const { email, password } = req.body as { email: string; password: string };
     if (email && password) {
+
+      const existingUser = await db.query.usersTable.findFirst({
+        where: (fields, operators) => operators.eq(fields.email, email),
+      });
+
+      if (existingUser) {
+        return res.status(409).send({ error: "User already exists" });
+      }
+
       const hashedPassword = await hashPassword(
         password,
         config().passwordSalt,
